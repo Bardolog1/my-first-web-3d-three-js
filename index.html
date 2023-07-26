@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script>  
+
+
+			// para trabajar en three se necesita una camara una escena y un renderizador 
+
+				const scene = new THREE.Scene(); // escena
+
+				const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );    // existen varias camaras, por ahora usaremos la de perspectiva, el primer atributo es el campo de vision o FOV es la extensión de la escena que se ve en la pantalla en un momento dado. El valor está en grados.
+				//el segundoa valor es la relacion de aspecto, tomamos los valores de medida de del widh y el heigth y los dicvidimos 
+				// el tercero son los valores de recorte lejano y cercano
+
+				const renderer = new THREE.WebGLRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+
+				const geometry = new THREE.BoxGeometry();   // llamamos al objeto que vamos a usar en este caso un cubo
+				const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); //llamamos el maetial y el color que va a tomar el cubo
+				const cube = new THREE.Mesh( geometry, material );   // creamos el objeto con los atributos
+				scene.add( cube );  // lo pasamos a la escena
+
+				camera.position.z = 5;  // movemos la camara 
+
+				
+				// creamos la funcion para renderizar la animacion
+					
+				function animate() {
+						requestAnimationFrame( animate );
+						cube.rotation.x += 0.01;
+						cube.rotation.y += 0.01;
+						renderer.render( scene, camera );
+					}
+					
+
+					animate();   
+
+
+		</script>
+	</body>
+</html>
